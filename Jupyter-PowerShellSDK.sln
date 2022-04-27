@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jupyter-PowerShellSDK", "Jupyter-PowerShellSDK\Jupyter-PowerShellSDK.csproj", "{DB73B878-C2A7-46E4-8B08-499964BC7009}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jupyter-PowerShell5", "Jupyter-PowerShell5\Jupyter-PowerShell5.csproj", "{69B0A878-313D-4D77-8AD7-3A46B8C41C1D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB73B878-C2A7-46E4-8B08-499964BC7009}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB73B878-C2A7-46E4-8B08-499964BC7009}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB73B878-C2A7-46E4-8B08-499964BC7009}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DB73B878-C2A7-46E4-8B08-499964BC7009}.Debug|x64.Build.0 = Debug|Any CPU
+		{DB73B878-C2A7-46E4-8B08-499964BC7009}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB73B878-C2A7-46E4-8B08-499964BC7009}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{DB73B878-C2A7-46E4-8B08-499964BC7009}.Release|x64.ActiveCfg = Release|Any CPU
+		{DB73B878-C2A7-46E4-8B08-499964BC7009}.Release|x64.Build.0 = Release|Any CPU
+		{69B0A878-313D-4D77-8AD7-3A46B8C41C1D}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{69B0A878-313D-4D77-8AD7-3A46B8C41C1D}.Debug|Any CPU.Build.0 = Debug|x64
+		{69B0A878-313D-4D77-8AD7-3A46B8C41C1D}.Debug|x64.ActiveCfg = Debug|x64
+		{69B0A878-313D-4D77-8AD7-3A46B8C41C1D}.Debug|x64.Build.0 = Debug|x64
+		{69B0A878-313D-4D77-8AD7-3A46B8C41C1D}.Release|Any CPU.ActiveCfg = Debug|x64
+		{69B0A878-313D-4D77-8AD7-3A46B8C41C1D}.Release|Any CPU.Build.0 = Debug|x64
+		{69B0A878-313D-4D77-8AD7-3A46B8C41C1D}.Release|x64.ActiveCfg = Release|x64
+		{69B0A878-313D-4D77-8AD7-3A46B8C41C1D}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C7E85C36-E939-4729-9C85-E67BFC1F7483}
+	EndGlobalSection
+EndGlobal
