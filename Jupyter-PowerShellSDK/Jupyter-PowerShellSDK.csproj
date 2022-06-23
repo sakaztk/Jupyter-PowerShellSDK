@@ -3,7 +3,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Jupyter_PowerShellSDK</RootNamespace>
     <AssemblyName>Jupyter_PowerShellSDK</AssemblyName>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <LangVersion>default</LangVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -23,9 +23,9 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <StartupObject>Jupyter_PowerShellSDK.Program</StartupObject>
     <Authors>Sakoda</Authors>
-    <Version>7.2.4.0</Version>
-    <AssemblyVersion>7.2.4.0</AssemblyVersion>
-    <FileVersion>7.2.4.0</FileVersion>
+    <Version>7.2.5.0</Version>
+    <AssemblyVersion>7.2.5.0</AssemblyVersion>
+    <FileVersion>7.2.5.0</FileVersion>
     <Copyright>Sakoda</Copyright>
     <DebugType>none</DebugType>
   </PropertyGroup>
@@ -48,13 +48,13 @@
   <ItemGroup>
     <PackageReference Include="AsyncIO" Version="0.1.69" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.2.4" />
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.2.5" />
     <PackageReference Include="NetMQ">
       <Version>4.0.1.8</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Buffers" Version="4.5.1" />
-    <PackageReference Include="System.Memory" Version="4.5.4" />
+    <PackageReference Include="System.Memory" Version="4.5.5" />
     <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
