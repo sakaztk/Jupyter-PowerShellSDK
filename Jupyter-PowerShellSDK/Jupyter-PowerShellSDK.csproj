@@ -3,7 +3,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Jupyter_PowerShellSDK</RootNamespace>
     <AssemblyName>Jupyter_PowerShellSDK</AssemblyName>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <LangVersion>default</LangVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -38,17 +38,12 @@
     <OutputPath>bin\x64\Debug\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Management.Automation" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AsyncIO" Version="0.1.69" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.2.7" />
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.3.0" />
     <PackageReference Include="NetMQ">
       <Version>4.0.1.10</Version>
     </PackageReference>
