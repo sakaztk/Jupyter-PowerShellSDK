@@ -20,7 +20,7 @@ namespace Jupyter_PowerShellSDK
         public PublisherSocket IOPubSocket { get; set; }
 
         private readonly Connection connection;
-        private readonly HMAC signatureProvider;
+        private readonly HMACSHA256 signatureProvider;
         private Task heartbeatTask;
         private Task serverTask;
         private CancellationTokenSource cancellationTokenSource;
@@ -32,9 +32,7 @@ namespace Jupyter_PowerShellSDK
             this.connection = connection;
             if (!string.IsNullOrEmpty(this.connection.Key))
             {
-                this.signatureProvider =
-                    HMAC.Create(this.connection.SignatureScheme.Replace("-", string.Empty).ToUpperInvariant());
-                this.signatureProvider.Key = Encoding.ASCII.GetBytes(this.connection.Key);
+                this.signatureProvider = new HMACSHA256(Encoding.ASCII.GetBytes(this.connection.Key));
             }
         }
 
