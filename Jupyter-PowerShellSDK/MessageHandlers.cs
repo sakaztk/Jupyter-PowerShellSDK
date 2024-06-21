@@ -18,7 +18,7 @@ namespace Jupyter_PowerShellSDK
                     LanguageInfo = new LanguageInfo
                     {
                         Name = "powershell",
-                        Version = "7.4.2",
+                        Version = "7.4.3",
                         MimeType = "application/x-powershell",
                         FileExtension = "ps1",
                         PygmentsLexer = "powershell",
