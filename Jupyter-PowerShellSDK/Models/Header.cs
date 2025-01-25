@@ -23,10 +23,10 @@ namespace Jupyter_PowerShellSDK.Models
             {
                 MessageId = Guid.NewGuid().ToString(),
                 Session = session,
-                Username = "powershell5",
+                Username = "powershell7",
                 Date = DateTime.UtcNow.ToString("o"),
                 MessageType = messageType,
-                Version = "5.3"
+                Version = "7.5"
             };
         }
     }
