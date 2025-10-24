@@ -143,10 +143,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NetMQ">
-      <Version>4.0.2.1</Version>
+      <Version>4.0.2.2</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.3</Version>
+      <Version>13.0.4</Version>
     </PackageReference>
     <PackageReference Include="System.Memory">
       <Version>4.6.3</Version>
