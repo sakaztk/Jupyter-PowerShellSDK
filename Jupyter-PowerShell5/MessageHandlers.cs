@@ -12,7 +12,7 @@ namespace Jupyter_PowerShell5
                 message, "kernel_info_reply", new KernelInfoReply
                 {
                     Status = ReplyStatusBase.Ok,
-                    ProtocolVersion = "5.3",
+                    ProtocolVersion = "5.1",
                     Implementation = "powershell5",
                     ImplementationVersion = "1.0.0",
                     LanguageInfo = new LanguageInfo

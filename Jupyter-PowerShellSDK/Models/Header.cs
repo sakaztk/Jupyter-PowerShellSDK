@@ -26,7 +26,7 @@ namespace Jupyter_PowerShellSDK.Models
                 Username = "powershell7",
                 Date = DateTime.UtcNow.ToString("o"),
                 MessageType = messageType,
-                Version = "7.5"
+                Version = "7.6"
             };
         }
     }

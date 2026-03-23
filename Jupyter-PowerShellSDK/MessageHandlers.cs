@@ -12,13 +12,13 @@ namespace Jupyter_PowerShellSDK
                 message, "kernel_info_reply", new KernelInfoReply
                 {
                     Status = ReplyStatusBase.Ok,
-                    ProtocolVersion = "7.5",
+                    ProtocolVersion = "7.6",
                     Implementation = "powershell",
                     ImplementationVersion = "1.0.0",
                     LanguageInfo = new LanguageInfo
                     {
                         Name = "powershell",
-                        Version = "7.5.4",
+                        Version = "7.6.0",
                         MimeType = "application/x-powershell",
                         FileExtension = "ps1",
                         PygmentsLexer = "powershell",
