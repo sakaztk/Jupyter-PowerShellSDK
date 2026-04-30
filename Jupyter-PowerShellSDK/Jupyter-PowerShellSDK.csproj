@@ -43,12 +43,12 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AsyncIO" Version="0.1.69" />
-    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.6.0" />
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.6.1" />
     <PackageReference Include="NetMQ">
-      <Version>4.0.2.2</Version>
+      <Version>4.0.4</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="System.Management.Automation" Version="7.6.0" />
+    <PackageReference Include="System.Management.Automation" Version="7.6.1" />
     <PackageReference Include="System.ValueTuple" Version="4.6.2" />
   </ItemGroup>
 </Project>

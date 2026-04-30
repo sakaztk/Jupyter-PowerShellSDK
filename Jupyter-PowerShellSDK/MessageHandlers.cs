@@ -18,14 +18,14 @@ namespace Jupyter_PowerShellSDK
                     LanguageInfo = new LanguageInfo
                     {
                         Name = "powershell",
-                        Version = "7.6.0",
+                        Version = "7.6.1",
                         MimeType = "application/x-powershell",
                         FileExtension = "ps1",
                         PygmentsLexer = "powershell",
                         CodemirrorMode = "powershell",
                         NbconvertExporter = "script"
                     },
-                    Banner = $"Windows PowerShell 7.5 (CLR {Assembly.GetExecutingAssembly().ImageRuntimeVersion})"
+                    Banner = $"Windows PowerShell 7.6 (CLR {Assembly.GetExecutingAssembly().ImageRuntimeVersion})"
                 }), kernel);
         }
 
