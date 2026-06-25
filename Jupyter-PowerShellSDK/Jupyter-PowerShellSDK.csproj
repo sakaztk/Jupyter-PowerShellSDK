@@ -22,11 +22,11 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <StartupObject>Jupyter_PowerShellSDK.Program</StartupObject>
-    <Authors>Sakoda</Authors>
-    <Version>7.6.2.0</Version>
+    <Authors>sakaztk</Authors>
+    <Version>7.6.3.0</Version>
     <AssemblyVersion>7.6.2.0</AssemblyVersion>
-    <FileVersion>7.6.2.0</FileVersion>
-    <Copyright>Sakoda</Copyright>
+    <FileVersion>7.6.3.0</FileVersion>
+    <Copyright>sakaztk</Copyright>
     <DebugType>none</DebugType>
     <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
@@ -43,12 +43,12 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AsyncIO" Version="0.1.69" />
-    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.6.2" />
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.6.3" />
     <PackageReference Include="NetMQ">
-      <Version>4.0.4.1</Version>
+      <Version>4.0.4.2</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="System.Management.Automation" Version="7.6.2" />
+    <PackageReference Include="System.Management.Automation" Version="7.6.3" />
     <PackageReference Include="System.ValueTuple" Version="4.6.2" />
   </ItemGroup>
 </Project>
