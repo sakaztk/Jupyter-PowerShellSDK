@@ -13,6 +13,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Install", "Install", "{54CFD026-20BA-4767-A7A6-2C8F4BF108FC}"
+	ProjectSection(SolutionItems) = preProject
+		Install\Install-PowerShell5Kernel-powershell.ipynb = Install\Install-PowerShell5Kernel-powershell.ipynb
+		Install\Install-PowerShell5Kernel-python.ipynb = Install\Install-PowerShell5Kernel-python.ipynb
+		Install\Install-PowerShell5Kernel.ps1 = Install\Install-PowerShell5Kernel.ps1
+		Install\Install-PowerShellSDKKernel-powershell.ipynb = Install\Install-PowerShellSDKKernel-powershell.ipynb
+		Install\Install-PowerShellSDKKernel-python.ipynb = Install\Install-PowerShellSDKKernel-python.ipynb
+		Install\Install-PowerShellSDKKernel.ps1 = Install\Install-PowerShellSDKKernel.ps1
+		Install\README.md = Install\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +61,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{54CFD026-20BA-4767-A7A6-2C8F4BF108FC} = {123909B7-7DC2-4037-B22F-AF056B60A4C1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C7E85C36-E939-4729-9C85-E67BFC1F7483}
