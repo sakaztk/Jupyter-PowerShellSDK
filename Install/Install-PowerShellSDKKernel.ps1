@@ -11,15 +11,30 @@
 .PARAMETER WorkingFolder
 	Temporary folder used for downloaded files. Defaults to the current directory.
 
+.PARAMETER User
+	Install into the current user's area only. No elevation is required.
+	NOTE: .NET 10 Runtime installation is skipped in user mode (requires admin).
+
+.PARAMETER Uninstall
+	Remove the installed kernel. Both user-scope and system-scope locations
+	are checked and cleaned.
+
 .EXAMPLE
 	.\Install-PowerShellSDKKernel.ps1
 
 .EXAMPLE
+	.\Install-PowerShellSDKKernel.ps1 -User
+
+.EXAMPLE
 	.\Install-PowerShellSDKKernel.ps1 -WorkingFolder C:\Temp
+
+.EXAMPLE
+	.\Install-PowerShellSDKKernel.ps1 -Uninstall
 #>
 [CmdletBinding()]
 param (
 	[string]$WorkingFolder = '.',
+	[switch]$User,
 	[switch]$Uninstall
 )
 
@@ -29,18 +44,49 @@ $ProgressPreference    = 'SilentlyContinue'
 # Resolve WorkingFolder to an absolute path up front
 $WorkingFolder = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($WorkingFolder)
 
-# Resolve paths from Jupyter / Python
-$packagePath = $(python -c "import site; print(site.getusersitepackages())")
-$kernelPath  = $((python -m jupyter kernelspec list | Select-String 'python3$' | ForEach-Object {
-	($_ -replace '^\s+', '') -split '^python3\s+'
-})[1] | Split-Path)
+# =====================================================================
+# Privilege check / self-elevation
+# -User  : install to user scope, no elevation needed
+# default: install to system scope; self-elevate if not already admin
+# =====================================================================
+$isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(
+	[Security.Principal.WindowsBuiltInRole]::Administrator)
 
-if ([string]::IsNullOrEmpty($kernelPath)) {
-	throw "Could not determine Jupyter kernel path. Is the python3 kernel registered?"
+if (-not $User -and -not $isAdmin) {
+	Write-Host "Administrator privileges required. Re-launching as administrator..."
+
+	$argList = @()
+	if ($Uninstall) { $argList += '-Uninstall' }
+	if ($WorkingFolder -ne '.') { $argList += "-WorkingFolder `"$WorkingFolder`"" }
+
+	$scriptPath = $PSCommandPath
+	if ([string]::IsNullOrEmpty($scriptPath)) {
+		$scriptPath = Join-Path $env:TEMP 'Install-PowerShellSDKKernel_elevated.ps1'
+		$MyInvocation.MyCommand.Definition | Set-Content -Path $scriptPath -Encoding UTF8
+	}
+
+	$psExe   = (Get-Process -Id $PID).Path
+	$argFull = "-NoProfile -ExecutionPolicy Bypass -File `"$scriptPath`" $($argList -join ' ')"
+	Start-Process -FilePath $psExe -ArgumentList $argFull -Verb RunAs -Wait
+	exit
 }
 
+if ($User) {
+	$packagePath = $(python -c "import site; print(site.getusersitepackages())")
+	$kernelPath  = Join-Path (python -m jupyter --data-dir) 'kernels'
+}
+else {
+	$packagePath = $(python -c "import site; print(site.getsitepackages()[0])")
+	$kernelPath  = $((python -m jupyter kernelspec list | Select-String 'python3$' | ForEach-Object {($_ -replace '^\s+', '') -split '^python3\s+'})[1] | Split-Path)
+}
+
+"Scope        : $(if ($User) { 'User' } else { 'System' })"
 "Package path : $packagePath"
 "Kernel path  : $kernelPath"
+
+if (-not (Test-Path $kernelPath)) {
+	New-Item -ItemType Directory -Path $kernelPath -Force | Out-Null
+}
 
 function Remove-TargetDirectory {
 	param (
@@ -49,8 +95,13 @@ function Remove-TargetDirectory {
 	)
 
 	if (Test-Path $Path) {
-		Remove-Item -Path $Path -Recurse -Force
-		Write-Host "Removed ${Label}: $Path"
+		try {
+			Remove-Item -Path $Path -Recurse -Force
+			Write-Host "Removed ${Label}: $Path"
+		}
+		catch {
+			Write-Warning "Could not remove ${Label} at $Path : $_"
+		}
 	}
 	else {
 		Write-Host "$Label not found: $Path"
@@ -58,16 +109,25 @@ function Remove-TargetDirectory {
 }
 
 if ($Uninstall) {
-	Write-Host "Uninstall mode selected."
-	Remove-TargetDirectory -Path (Join-Path $kernelPath 'powershellSDK') -Label 'PowerShell SDK kernelspec'
-	Remove-TargetDirectory -Path (Join-Path $packagePath 'powershellSDK_kernel') -Label 'PowerShell SDK package folder'
+	Write-Host "Uninstall mode selected. Checking both user and system locations..."
+
+	$userPackagePath = $(python -c "import site; print(site.getusersitepackages())")
+	$userKernelPath  = Join-Path (python -m jupyter --data-dir) 'kernels'
+	$sysPackagePath  = $(python -c "import site; print(site.getsitepackages()[0])")
+	$sysKernelPath   = $((python -m jupyter kernelspec list | Select-String 'python3$' | ForEach-Object {($_ -replace '^\s+', '') -split '^python3\s+'})[1] | Split-Path)
+
+	foreach ($kp in @($userKernelPath, $sysKernelPath)) {
+		Remove-TargetDirectory -Path (Join-Path $kp 'powershellSDK') -Label 'PowerShell SDK kernelspec'
+	}
+	foreach ($pp in @($userPackagePath, $sysPackagePath)) {
+		Remove-TargetDirectory -Path (Join-Path $pp 'powershellSDK_kernel') -Label 'PowerShell SDK package folder'
+	}
+
 	Write-Host 'Uninstallation complete.'
 	return
 }
 
-# =====================================================================
-# 1. Check .NET 10 installation and install Runtime if needed
-# =====================================================================
+# Check .NET 10 installation and install Runtime if needed
 function Test-DotNet10Installed {
 	# Check via dotnet CLI
 	try {
@@ -78,7 +138,6 @@ function Test-DotNet10Installed {
 	}
 	catch { }
 
-	# Check registry as fallback
 	$regPaths = @(
 		'HKLM:\SOFTWARE\dotnet\Setup\InstalledVersions\x64\sharedfx\Microsoft.NETCore.App',
 		'HKLM:\SOFTWARE\dotnet\Setup\InstalledVersions\x64\sdk',
@@ -160,9 +219,7 @@ else {
 	}
 }
 
-# =====================================================================
-# 2. Download PowerShell SDK Kernel archive
-# =====================================================================
+# Download PowerShell SDK Kernel archive
 $zipName = 'PowerShellSDK.zip'
 $zipPath = Join-Path $WorkingFolder $zipName
 
@@ -183,9 +240,7 @@ $fileUri       = 'https://github.com' + $fileLink.ToString().Trim()
 
 Write-Host "Downloading $zipName from $fileUri ..."
 
-# =====================================================================
-# 3. Install kernel binaries
-# =====================================================================
+# Install kernel binaries
 $installDir = Join-Path $packagePath 'powershellSDK_kernel'
 try {
 	Invoke-WebRequest -Uri $fileUri -UseBasicParsing -OutFile $zipPath
@@ -196,13 +251,11 @@ finally {
 	if (Test-Path $zipPath) { Remove-Item $zipPath -Force }
 }
 
-# =====================================================================
-# 4. Create kernelspec directory
-# =====================================================================
+# Create kernelspec directory
 $kernelSpecDir = Join-Path $kernelPath 'powershellSDK'
 New-Item -ItemType Directory -Path $kernelSpecDir -Force | Out-Null
 
-# --- Download and resize logo ---
+# Download and resize logo
 $logo64 = Join-Path $kernelSpecDir 'logo-64x64.png'
 $logo32 = Join-Path $kernelSpecDir 'logo-32x32.png'
 Write-Host "Downloading kernel logo..."
@@ -220,7 +273,7 @@ $graphics.Dispose()
 $bitmap32.Dispose()
 $image.Dispose()
 
-# --- Write kernel.json ---
+# Write kernel.json
 $exePath = "$($installDir.Replace('\', '/'))/Jupyter_PowerShellSDK.exe"
 $kernelJson = @"
 {
@@ -241,3 +294,4 @@ if (Test-Path $extraPngs) {
 }
 
 Write-Host "Installation complete."
+Read-Host > $null
