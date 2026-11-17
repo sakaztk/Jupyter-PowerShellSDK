@@ -12,20 +12,20 @@ namespace Jupyter_PowerShellSDK
                 message, "kernel_info_reply", new KernelInfoReply
                 {
                     Status = ReplyStatusBase.Ok,
-                    ProtocolVersion = "7.6",
+                    ProtocolVersion = "7.7",
                     Implementation = "powershell",
                     ImplementationVersion = "1.0.0",
                     LanguageInfo = new LanguageInfo
                     {
                         Name = "powershell",
-                        Version = "7.6.9",
+                        Version = "7.7.0",
                         MimeType = "application/x-powershell",
                         FileExtension = "ps1",
                         PygmentsLexer = "powershell",
                         CodemirrorMode = "powershell",
                         NbconvertExporter = "script"
                     },
-                    Banner = $"Windows PowerShell 7.6 (CLR {Assembly.GetExecutingAssembly().ImageRuntimeVersion})"
+                    Banner = $"Windows PowerShell 7.7 (CLR {Assembly.GetExecutingAssembly().ImageRuntimeVersion})"
                 }), kernel);
         }
 
